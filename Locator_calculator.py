@@ -94,5 +94,3 @@ if uploaded_file:
         st.download_button("CSV herunterladen", csv, filename, "text/csv")
     else:
         st.warning("Keine gültigen LOC-Einträge gefunden.")
-
-
