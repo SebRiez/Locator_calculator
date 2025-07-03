@@ -29,6 +29,8 @@ def parse_edl_and_compute_locators(edl_lines, fps=25):
         r"^(?P<event>\d{6})\s+(?P<clip>\S+)\s+\S+\s+\S+\s+(?P<src_in>\d{2}:\d{2}:\d{2}:\d{2})\s+(?P<src_out>\d{2}:\d{2}:\d{2}:\d{2})"
     )
 
+    loc_regex = re.compile(r"\*\s?LOC:\s+(\d{2}:\d{2}:\d{2}:\d{2})")
+
     for line in edl_lines:
         match = event_regex.match(line)
         if match:
@@ -41,8 +43,8 @@ def parse_edl_and_compute_locators(edl_lines, fps=25):
             collecting_locators = False
         elif line.strip().startswith("*FROM CLIP NAME:") and current_event:
             collecting_locators = True
-        elif "*LOC:" in line and collecting_locators and current_event:
-            tc_match = re.search(r"\*LOC:\s+(\d{2}:\d{2}:\d{2}:\d{2})", line)
+        elif "*LOC:" in line and current_event:
+            tc_match = loc_regex.search(line)
             if tc_match:
                 current_event["locators"].append(tc_match.group(1))
         elif line.strip() == "":
@@ -67,7 +69,7 @@ def parse_edl_and_compute_locators(edl_lines, fps=25):
 
 # === Streamlit UI ===
 
-st.title("Locator Timecode Calculator (pour le general)")
+st.title("Locator Timecode Calculator (EDL Parser)")
 
 uploaded_file = st.file_uploader("Lade deine EDL-Datei hoch", type=["edl", "txt"])
 
@@ -89,3 +91,4 @@ if uploaded_file:
         st.download_button("CSV herunterladen", csv, filename, "text/csv")
     else:
         st.warning("Keine gültigen LOC-Einträge gefunden.")
+
