@@ -1,4 +1,4 @@
-# creted by Sebastian Riezler
+# created by Sebastian Riezler
 # c 2025
 
 import streamlit as st
@@ -9,7 +9,7 @@ import os
 
 # === Streamlit UI ===
 
-st.title("Locator Timecode Calculator (EDL Parser)")
+st.title("Locator Timecode Calculator (pour le general)")
 
 # Hinweisbox mit Absatz
 st.info("✅ Commit multicam edits before exporting EDL.\n\nOptimized for FILE32 EDL format.")
