@@ -1,3 +1,6 @@
+# creted by Sebastian Riezler
+# c 2025
+
 import streamlit as st
 import pandas as pd
 import re
@@ -64,7 +67,7 @@ def parse_edl_and_compute_locators(edl_lines, fps=25):
 
 # === Streamlit UI ===
 
-st.title("Locator Timecode Calculator (EDL Parser)")
+st.title("Locator Timecode Calculator (pour le general)")
 
 uploaded_file = st.file_uploader("Lade deine EDL-Datei hoch", type=["edl", "txt"])
 
