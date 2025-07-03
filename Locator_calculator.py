@@ -7,6 +7,13 @@ import re
 from datetime import datetime
 import os
 
+# === Streamlit UI ===
+
+st.title("Locator Timecode Calculator (EDL Parser)")
+
+# Hinweisbox mit Absatz
+st.info("✅ Commit multicam edits before exporting EDL.\n\nOptimized for FILE32 EDL format.")
+
 # === Funktionen ===
 
 def tc_to_frames(tc_str, fps=25):
@@ -67,10 +74,6 @@ def parse_edl_and_compute_locators(edl_lines, fps=25):
 
     return pd.DataFrame(results)
 
-# === Streamlit UI ===
-
-st.title("Locator Timecode Calculator (EDL Parser)")
-
 uploaded_file = st.file_uploader("Lade deine EDL-Datei hoch", type=["edl", "txt"])
 
 if uploaded_file:
@@ -91,4 +94,5 @@ if uploaded_file:
         st.download_button("CSV herunterladen", csv, filename, "text/csv")
     else:
         st.warning("Keine gültigen LOC-Einträge gefunden.")
+
 
